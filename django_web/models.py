@@ -1,6 +1,6 @@
 from django.db import models
 from mongoengine import *
-from django.core.paginator import Paginator
+
 class ItemInfo(Document):
     title = StringField()  # 名称严格与数据库中的key 对应
     url = StringField()

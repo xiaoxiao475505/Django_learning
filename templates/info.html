@@ -1,0 +1,32 @@
+{% extends 'charts.html' %}
+
+{% block information %}
+    <div class="ui equal width grid" style="margin:5px 0 5px 0;width: 70%">
+        <div class="row">
+              <div class="column">
+                  <div class="ui blue segment">
+                      <div class="ui statistic">
+                          <div class="value">
+                              {{ counts }}
+                          </div>
+                          <div class="label">
+                              Document Volume
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="column">
+                  <div class="ui red segment">
+                      <div class="ui statistic">
+                          <div class="value">
+                            {{ last_time|safe }}
+                          </div>
+                          <div class="label">
+                              Last publish date
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends 'charts.html' %}
+{% block information %}
+    <div class="ui compact menu" style="margin: 5px 5px 5px 5px;width: 70%">
+         <div class="ui simple dropdown item">
+            不同地区tpo3的发帖类目柱状图
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div class="item" id="CY">朝阳</div>
+                <div class="item" id="TZ">通州</div>
+                <div class="item" id="HD">海淀</div>
+
+            </div>
+         </div>
+         <div class="ui simple dropdown item">
+            个类目发帖总量
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                <div class="item" id="bar">柱状图</div>
+                <div class="item" id="pie">饼图</div>
+            </div>
+         </div>
+    </div>
+    <div class="ui equal width grid" style="margin:5px 0 5px 0;width:70%">
+          <div class="row">
+              <div class="column">
+                  <div class="ui container" id="chart" style="width: 70%"></div>
+               </div>
+          </div>
+      </div>
+{% endblock %}
+
+{% block chartInfo %}
+    <script>
+        $('#CY').click(function () {
+          $('#chart').highcharts({
+            credits:{
+                enabled:false
+            },
+            title: {
+                text: '朝阳二手交易'
+            },
+            yAxis: {
+                title: {
+                    text: 'TOP 3'
+                }
+            },
+            series: {{ chart_CY|safe }}
+        });
+    });
+    </script>
+    <script>
+        $('#TZ').click(function () {
+          $('#chart').highcharts({
+            credits:{
+                enabled:false
+            },
+            title: {
+                text: '通州二手交易'
+            },
+            yAxis: {
+                title: {
+                    text: 'TOP 3'
+                }
+            },
+            series: {{ chart_TZ|safe }}
+        });
+    });
+    </script>
+    <script>
+        $('#HD').click(function () {
+          $('#chart').highcharts({
+            credits:{
+                enabled:false
+            },
+            title: {
+                text: '海淀二手交易'
+            },
+            yAxis: {
+                title: {
+                    text: 'TOP 3'
+                }
+            },
+            series: {{ chart_HD|safe }}
+        });
+    });
+    </script>
+    <script>
+        $('#bar').click(function () {
+        // Create the chart
+        $('#chart').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '发帖总量柱状图'
+            },
+            xAxis: {
+                type: 'category'
+            },
+            yAxis: {
+                title: {
+                    text: '数量'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+
+            series: [{
+                name: 'posts',
+                colorByPoint: true,
+                data: {{ series_post|safe }}
+            }]
+        });
+    });
+    </script>
+    <script>
+        $('#pie').click(function () {
+            $('#chart').highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: '发帖总量'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Percent',
+                    colorByPoint: true,
+                    data: {{ series_post|safe }}
+                }]
+            });
+        });
+    </script>
+
+{% endblock %}
